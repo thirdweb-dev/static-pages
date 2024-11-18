@@ -19,16 +19,16 @@ export const login = async (redirectUrl: string, payload: VerifyLoginPayloadPara
 };
 
 export const isLoggedIn = async (address: Address | string) => {
-  const cookieStore = await cookies();
-  if (!cookieStore.has("jwt")) {
-    return false;
-  }
-  const result = await auth.verifyJWT({ jwt: cookieStore.get("jwt")!.value });
-  return result.valid && result.parsedJWT.sub === address;
+  return false;
+  // const cookieStore = await cookies();
+  // if (!cookieStore.has("jwt")) {
+  //   return false;
+  // }
+  // const result = await auth.verifyJWT({ jwt: cookieStore.get("jwt")!.value });
+  // return result.valid && result.parsedJWT.sub === address;
 };
 
 export const doLogout = async () => {
   const cookieStore = await cookies();
   cookieStore.delete("jwt");
-  redirect(`/auth/siwe`);
 };

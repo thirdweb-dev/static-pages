@@ -7,7 +7,6 @@ const ConnectButton = () => {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirectUrl") || "/auth/complete";
   const doLogin = login.bind(null, redirectUrl);
-
   return (
     <ThirdwebConnectButton
       client={client}
