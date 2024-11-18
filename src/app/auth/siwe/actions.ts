@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import type { Address } from "thirdweb";
 import { type GenerateLoginPayloadParams, VerifyLoginPayloadParams } from "thirdweb/auth";
 
-export const getLoginPayload = async (params: GenerateLoginPayloadParams) => auth.generatePayload({ address: params.address });
+export const getLoginPayload = async (params: GenerateLoginPayloadParams) => auth.generatePayload(params);
 
 export const login = async (redirectUrl: string | null, payload: VerifyLoginPayloadParams) => {
   const verifiedPayload = await auth.verifyPayload(payload);
