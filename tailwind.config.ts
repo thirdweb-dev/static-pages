@@ -2,9 +2,7 @@ import type { Config } from "tailwindcss";
 
 export default {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -12,6 +10,16 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backgroundImage: {
+        'gradient-radial': "radial-gradient(ellipse at center,hsl(260deg 78% 35% / 40%),transparent 60%)"
+      },
+      zIndex: {
+        "1": "1"
+      },
+      spacing: {
+        '600': '150rem',
+        '350': '87.5rem',
+      }
     },
   },
   plugins: [],
