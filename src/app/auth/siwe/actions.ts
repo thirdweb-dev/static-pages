@@ -7,14 +7,14 @@ import { VerifyLoginPayloadParams } from "thirdweb/auth";
 
 export const generatePayload = async (address: Address) => auth.generatePayload({ address });
 
-export const login = async (payload: VerifyLoginPayloadParams) => {
+export const login = async (payload: VerifyLoginPayloadParams, redirectUrl: string | null) => {
   const verifiedPayload = await auth.verifyPayload(payload);
   if (verifiedPayload.valid) {
     const jwt = await auth.generateJWT({ payload: verifiedPayload.payload });
     const cookieStore = await cookies();
     cookieStore.set("jwt", jwt);
     const params = new URLSearchParams({ signature: payload.signature, payload: JSON.stringify(payload.payload) });
-    redirect(`/auth/complete?${params}`);
+    redirect(`${redirectUrl || "/auth/complete"}?${params}`);
   }
 };
 

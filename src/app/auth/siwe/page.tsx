@@ -1,12 +1,14 @@
 "use client";
 import { generatePayload, isLoggedIn, login, logout } from "@/app/auth/siwe/actions";
 import { client, theme, wallets } from "@/components/thirdweb";
+import { useSearchParams } from "next/navigation";
 import type { Address } from "thirdweb";
 import { ConnectButton } from "thirdweb/react";
 
 
 
 const SIWEPage = () => {
+  const searchParams = useSearchParams();
   return (
     <div className="flex flex-col grow justify-center items-center">
       <ConnectButton
@@ -17,7 +19,7 @@ const SIWEPage = () => {
         connectModal={{ size: "compact" }}
         auth={{
           isLoggedIn: (address) => isLoggedIn(address as Address),
-          doLogin: (params) => login(params),
+          doLogin: (params) => login(params, searchParams.get("redirectUrl")),
           getLoginPayload: async ({ address }) => generatePayload(address as Address),
           doLogout:  () => logout(),
         }}
