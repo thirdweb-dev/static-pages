@@ -3,11 +3,11 @@ import { auth } from "@/components/thirdweb.server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import type { Address } from "thirdweb";
-import { VerifyLoginPayloadParams } from "thirdweb/auth";
+import { type GenerateLoginPayloadParams, VerifyLoginPayloadParams } from "thirdweb/auth";
 
-export const generatePayload = async (address: Address) => auth.generatePayload({ address });
+export const getLoginPayload = async (params: GenerateLoginPayloadParams) => auth.generatePayload({ address: params.address });
 
-export const login = async (payload: VerifyLoginPayloadParams, redirectUrl: string | null) => {
+export const login = async (redirectUrl: string, payload: VerifyLoginPayloadParams) => {
   const verifiedPayload = await auth.verifyPayload(payload);
   if (verifiedPayload.valid) {
     const jwt = await auth.generateJWT({ payload: verifiedPayload.payload });
@@ -18,7 +18,7 @@ export const login = async (payload: VerifyLoginPayloadParams, redirectUrl: stri
   }
 };
 
-export const isLoggedIn = async (address: Address) => {
+export const isLoggedIn = async (address: Address | string) => {
   const cookieStore = await cookies();
   if (!cookieStore.has("jwt")) {
     return false;
@@ -27,7 +27,7 @@ export const isLoggedIn = async (address: Address) => {
   return result.valid && result.parsedJWT.sub === address;
 };
 
-export const logout = async () => {
+export const doLogout = async () => {
   const cookieStore = await cookies();
   cookieStore.delete("jwt");
   redirect(`/auth/siwe`);
