@@ -13,7 +13,10 @@ export const login = async (redirectUrl: string | null, payload: VerifyLoginPayl
     const jwt = await auth.generateJWT({ payload: verifiedPayload.payload });
     const cookieStore = await cookies();
     cookieStore.set("jwt", jwt);
-    const params = new URLSearchParams({ signature: payload.signature, payload: JSON.stringify(payload.payload) });
+    const params = new URLSearchParams({ signature: payload.signature, payload: encodeURIComponent(JSON.stringify(payload.payload)) });
+    if (redirectUrl === null) {
+      redirectUrl = "/auth/complete";
+    }
     redirect(`${redirectUrl}?${params}`);
   }
 };
