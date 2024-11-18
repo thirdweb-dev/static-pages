@@ -7,14 +7,14 @@ import { type GenerateLoginPayloadParams, VerifyLoginPayloadParams } from "third
 
 export const getLoginPayload = async (params: GenerateLoginPayloadParams) => auth.generatePayload({ address: params.address });
 
-export const login = async (redirectUrl: string, payload: VerifyLoginPayloadParams) => {
+export const login = async (redirectUrl: string | null, payload: VerifyLoginPayloadParams) => {
   const verifiedPayload = await auth.verifyPayload(payload);
   if (verifiedPayload.valid) {
     const jwt = await auth.generateJWT({ payload: verifiedPayload.payload });
     const cookieStore = await cookies();
     cookieStore.set("jwt", jwt);
     const params = new URLSearchParams({ signature: payload.signature, payload: JSON.stringify(payload.payload) });
-    redirect(`${redirectUrl || "/auth/complete"}?${params}`);
+    redirect(`${redirectUrl}?${params}`);
   }
 };
 

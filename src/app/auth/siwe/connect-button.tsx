@@ -5,7 +5,7 @@ import { ConnectButton as ThirdwebConnectButton } from "thirdweb/react";
 
 const ConnectButton = () => {
   const searchParams = useSearchParams();
-  const redirectUrl = searchParams.get("redirectUrl") || "/auth/complete";
+  const redirectUrl = searchParams.get("redirectUrl");
   const doLogin = login.bind(null, redirectUrl);
   return (
     <ThirdwebConnectButton
