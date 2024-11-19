@@ -21,8 +21,9 @@ export const getLoginPayload = async (params: GenerateLoginPayloadParams) => {
     const payload: LoginPayload = await res.json();
     console.log(payload);
     return payload;
+  } else {
+    throw new Error("Unable to get login payload");
   }
-  return undefined;
 };
 
 export const login = async (redirectUrl: string | null, { payload, signature }: VerifyLoginPayloadParams) => {
