@@ -10,4 +10,4 @@ if (!privateKey) {
 
 const adminAccount = privateKeyToAccount({ client, privateKey });
 
-export const auth = createAuth({ domain: "static.thirdweb.com", client, adminAccount });
+export const auth = createAuth({ domain: "https://static.thirdweb.com", client, adminAccount });
