@@ -1,6 +1,5 @@
 import { createThirdwebClient } from "thirdweb";
 import { darkTheme } from "thirdweb/react";
-import { createWallet } from "thirdweb/wallets";
 
 const clientId = process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || "";
 
@@ -10,8 +9,6 @@ if (!clientId) {
 
 const client = createThirdwebClient({ clientId });
 
-const wallets = [ createWallet("io.metamask"), createWallet("com.coinbase.wallet") ];
-
 const theme = darkTheme({
   colors: {
     modalBg: "hsl(0, 0%, 10%)",
@@ -20,4 +17,4 @@ const theme = darkTheme({
   },
 });
 
-export { clientId, client, wallets, theme };
+export { clientId, client, theme };
