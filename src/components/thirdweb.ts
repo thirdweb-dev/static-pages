@@ -10,8 +10,6 @@ if (!clientId) {
 
 const client = createThirdwebClient({ clientId });
 
-const wallets = [ createWallet("io.metamask"), createWallet("com.coinbase.wallet") ];
-
 const theme = darkTheme({
   colors: {
     modalBg: "hsl(0, 0%, 10%)",
@@ -20,4 +18,4 @@ const theme = darkTheme({
   },
 });
 
-export { clientId, client, wallets, theme };
+export { clientId, client, theme };
