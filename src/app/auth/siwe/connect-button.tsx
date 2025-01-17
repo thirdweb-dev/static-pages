@@ -12,7 +12,10 @@ import { createWallet, WalletId } from "thirdweb/wallets";
 const ConnectButton = () => {
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirectUrl");
-  const walletOverrides = searchParams.getAll("wallets") as WalletId[];
+  const walletParam = searchParams.get("wallets");
+  const walletOverrides = walletParam
+    ? (walletParam.split(",") as WalletId[])
+    : [];
   const hasWalletOverrides = walletOverrides.length > 0;
   const wallets = hasWalletOverrides
     ? walletOverrides.map((walletId) => createWallet(walletId))
