@@ -8,6 +8,7 @@ import { client, theme } from "@/components/thirdweb";
 import { useSearchParams } from "next/navigation";
 import { ConnectButton as ThirdwebConnectButton } from "thirdweb/react";
 import { createWallet, WalletId } from "thirdweb/wallets";
+import { abstractWallet } from "@abstract-foundation/agw-react/thirdweb";
 
 const ConnectButton = () => {
   const searchParams = useSearchParams();
@@ -18,11 +19,13 @@ const ConnectButton = () => {
     : [];
   const hasWalletOverrides = walletOverrides.length > 0;
   const wallets = hasWalletOverrides
-    ? walletOverrides.map((walletId) => createWallet(walletId))
+    ? walletOverrides.map((walletId) =>
+        walletId === "xyz.abs" ? abstractWallet() : createWallet(walletId)
+      )
     : [
         createWallet("io.metamask"),
         createWallet("com.coinbase.wallet"),
-        createWallet("xyz.abs"),
+        abstractWallet(),
       ];
 
   const doLogin = login.bind(null, redirectUrl);
